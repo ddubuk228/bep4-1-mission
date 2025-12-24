@@ -24,7 +24,6 @@ public class MemberFacade  {
 
     @Transactional
     public RsData<Member> join(String username, String password, String nickname) {
-
         return memberJoinUserCase.join(username, password, nickname);
     }
 
