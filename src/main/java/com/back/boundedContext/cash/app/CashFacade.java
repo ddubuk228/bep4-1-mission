@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class CashFacade {
@@ -17,15 +19,15 @@ public class CashFacade {
 
 
     @Transactional
-    public CashMember syncMember(MemberDto memeber) {
+    public CashMember syncMember(MemberDto member) {
         CashMember cashMember = new CashMember(
-                memeber.getId(),
-                memeber.getCreateDate(),
-                memeber.getModifyDate(),
-                memeber.getUsername(),
+                member.getId(),
+                member.getCreateDate(),
+                member.getModifyDate(),
+                member.getUsername(),
                 "",
-                memeber.getNickname(),
-                memeber.getActivityScore()
+                member.getNickname(),
+                member.getActivityScore()
         );
 
         return cashMemberRepository.save(cashMember);
@@ -35,5 +37,15 @@ public class CashFacade {
         Wallet wallet = new Wallet(holder);
 
         return walletRepository.save(wallet);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<CashMember> findMemberByUsername(String username) {
+        return cashMemberRepository.findByUsername(username);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Wallet> findWalletByHolder(CashMember holder) {
+        return walletRepository.findByHolder(holder);
     }
 }
