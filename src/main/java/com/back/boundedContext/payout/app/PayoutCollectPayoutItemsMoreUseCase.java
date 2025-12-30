@@ -45,7 +45,6 @@ public class PayoutCollectPayoutItemsMoreUseCase {
                     });
                 });
 
-
         return new RsData<>(
                 "201-1",
                 "%d건의 정산데이터가 생성되었습니다.".formatted(payoutReadyCandidateItems.size()),
